@@ -32,15 +32,15 @@ public class Generate implements Runnable {
     public static final String TEMPLATE_DIR_PARAM = "templateDir";
 
     @Option(name = {"-v", "--verbose"}, description = "verbose mode")
-    protected boolean verbose;
+    private boolean verbose;
 
     @Option(name = {"-l", "--lang"}, title = "language", required = true,
             description = "client language to generate (maybe class name in classpath, required)")
-    protected String lang;
+    private String lang;
 
     @Option(name = {"-o", "--output"}, title = "output directory",
             description = "where to write the generated files (current dir by default)")
-    protected String output = "";
+    private String output = "";
 
     @Option(name = {"-i", "--input-spec"}, title = "spec file", required = true,
             description = "location of the swagger spec, as URL or file (required)")
@@ -48,17 +48,17 @@ public class Generate implements Runnable {
 
     @Option(name = {"-t", "--template-dir"}, title = "template directory",
             description = "folder containing the template files")
-    protected String templateDir;
+    private String templateDir;
 
     @Option(name = {"-a", "--auth"}, title = "authorization",
             description = "adds authorization headers when fetching the swagger definitions remotely. " +
                     "Pass in a URL-encoded string of name:header with a comma separating multiple values")
-    protected String auth;
+    private String auth;
 
     @Option(name = {"-b", "--basic-auth"}, title = "basic auth",
             description = "adds basic auth headers when fetching swagger defenitions remotly and server is user basic auth to authenticate. " +
                     "Pass in arguments in the following format <username>:<password>")
-    protected String basicAuth;
+    private String basicAuth;
 
     @Override
     public void run() {
