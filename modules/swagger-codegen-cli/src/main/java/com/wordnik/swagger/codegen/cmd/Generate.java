@@ -40,7 +40,7 @@ public class Generate implements Runnable {
 
     @Option(name = {"-o", "--output"}, title = "output directory",
             description = "where to write the generated files (current dir by default)")
-    private String output = "";
+    protected String output = "";
 
     @Option(name = {"-i", "--input-spec"}, title = "spec file", required = true,
             description = "location of the swagger spec, as URL or file (required)")
