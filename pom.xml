@@ -9,7 +9,7 @@
   <artifactId>swagger-codegen-project</artifactId>
   <packaging>pom</packaging>
   <name>swagger-codegen-project</name>
-  <version>2.1.0-M2</version>
+  <version>2.1.0-M2Fork</version>
   <url>https://github.com/swagger-api/swagger-codegen</url>
   <scm>
     <connection>scm:git:git@github.com:swagger-api/swagger-codegen.git</connection>
@@ -43,6 +43,15 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
+  <distributionManagement>
+    <repository>
+     <id>kobjs.cloudapp.net.koapp03</id>
+     <name>kobjs.cloudapp.net.koapp03-libs</name>
+     <url>http://kobjs.cloudapp.net:8081/artifactory/libs-release-local</url>
+    </repository>
+ </distributionManagement>
+ 
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
     <outputDirectory>target/classes</outputDirectory>
