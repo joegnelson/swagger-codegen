@@ -44,13 +44,6 @@
     </license>
   </licenses>
   
-  <distributionManagement>
-    <repository>
-     <id>kobjs.cloudapp.net.koapp03</id>
-     <name>kobjs.cloudapp.net.koapp03-libs</name>
-     <url>http://kobjs.cloudapp.net:8081/artifactory/libs-release-local</url>
-    </repository>
- </distributionManagement>
  
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
