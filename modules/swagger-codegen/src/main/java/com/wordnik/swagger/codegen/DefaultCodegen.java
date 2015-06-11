@@ -452,6 +452,15 @@ public class DefaultCodegen {
         m.imports.add(containerType);
       }
     }
+   else if (model instanceof ComposedModel) {
+      final ComposedModel composed = (ComposedModel) model;
+      final RefModel parent = (RefModel) composed.getParent();
+      final String parentModel = toModelName(parent.getSimpleRef());
+      m.parent = parentModel;
+      addImport(m, parentModel);
+      final ModelImpl child = (ModelImpl) composed.getChild();
+      addVars(m, child.getProperties(), child.getRequired());
+  }
     else if (model instanceof RefModel) {
       // TODO
     }
@@ -529,6 +538,47 @@ public class DefaultCodegen {
     }
     return m;
   }
+  private void addImport(CodegenModel m, String type) {
+      if (type != null && !languageSpecificPrimitives.contains(type) && !defaultIncludes.contains(type)) {
+          m.imports.add(type);
+      }
+  }
+
+  private void addVars(CodegenModel m, Map<String, Property> properties, Collection<String> required) {
+      if (properties != null && properties.size() > 0) {
+          m.hasVars = true;
+          m.hasEnums = false;
+          final int totalCount = properties.size();
+          final Set<String> mandatory = required == null ? Collections.<String>emptySet() : new HashSet<String>(required);
+          int count = 0;
+          for (Map.Entry<String, Property> entry : properties.entrySet()) {
+              final String key = entry.getKey();
+              final Property prop = entry.getValue();
+
+              if (prop == null) {
+                  LOGGER.warn("null property for " + key);
+              } else {
+                  final CodegenProperty cp = fromProperty(key, prop);
+                  cp.required = mandatory.contains(key) ? true : null;
+                  if (cp.isEnum) {
+                      m.hasEnums = true;
+                  }
+                  count += 1;
+                  if (count != totalCount) {
+                      cp.hasMore = true;
+                  }
+                  if (cp.isContainer != null) {
+                      addImport(m, typeMapping.get("array"));
+                  }
+                  addImport(m, cp.baseType);
+                  addImport(m, cp.complexType);
+                  m.vars.add(cp);
+              }
+          }
+      } else {
+          m.emptyVars = true;
+      }
+  }   
 
   public String getterAndSetterCapitalize(String name) {
     if (name == null || name.length() == 0) {
